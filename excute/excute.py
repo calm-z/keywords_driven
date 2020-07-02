@@ -6,6 +6,7 @@
 
 from keywords.keywords import Keywords
 from time import sleep
+from log.log import Logger
 
 Keywords().wait(10)
 Keywords().visit("https://baidu.com")

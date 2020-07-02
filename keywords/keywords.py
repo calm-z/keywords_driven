@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from options.options import Options
 from time import sleep
 from selenium.webdriver.support.ui import WebDriverWait
+from log.log import Logger
 
 
 # 创建浏览器对象，通过反射机制来实现
@@ -61,27 +62,30 @@ class Keywords:
         sleep(time)
 
     # 显式等待
-    def explicit_wait(self, by_type, by_value, text, time):
-        wait = WebDriverWait(self.driver, text, time)
-        return wait.until(lambda el: self.locator(by_type, by_value), message="元素定位失败")
+    def explicit_wait(self, by_type, by_value, time):
+        wait = WebDriverWait(self.driver, time)
+        return wait.until(lambda el: self.locator(by_type, by_value))
 
     # 断言
-    def assert_txet(self, by_type, by_value, text, time, expect):
-        exp = self.explicit_wait(by_type, by_value, text, time)
-        reality = exp.text
+    def assert_txet(self, by_type, by_value, expect):
+        reality = self.locator(by_type, by_value).text
         try:
             assert reality == expect
+            Logger().get_logger().info("%r定位成功", format(reality))
             return True
         except Exception as e:
+            Logger().get_logger().info("定位失败", e)
             return False
 
     # 关闭浏览器当前标签页
     def close(self):
         self.driver.close()
+        Logger().get_logger().info("关闭标签")
 
     # 关闭浏览器
     def quit(self):
         self.driver.quit()
+        Logger().get_logger().info("关闭浏览器")
 
 
 if __name__ == "__main__":
@@ -91,4 +95,7 @@ if __name__ == "__main__":
     wk.input('id', 'kw', 'selenium')
     wk.click('id', 'su')
     wk.sleep(1)
-    wk.assert_txet()
+    wk.assert_txet('xpath', '//*[@id="2"]/h3/a[1]', "Selenium automates browsers. That's it!")
+    wk.wait(2)
+    wk.close()
+    wk.quit()
