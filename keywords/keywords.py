@@ -28,74 +28,88 @@ def open_browser(browser_type):
 
 
 class Keywords:
+    """
+        param = {}
+        param['by_type'] = value[2]
+        param['by_value'] = value[3]
+        param['text'] = value[4]
+        param['expect'] = value[6]
+    """
+    log = Logger().get_logger()
 
     # 构造函数
     def __init__(self, browser_type):
         self.driver = open_browser(browser_type)
 
     # 访问指定URL
-    def visit(self, url):
-        self.driver.get(url)
-
-    # 定位元素
-    def locator(self, by_type, by_value):
-        return self.driver.find_element(getattr(By, by_type.upper()), by_value)
-
-    # 清空操作
-    def clear(self, by_type, by_value):
-        self.locator(by_type, by_value).clear()
-
-    # 输入操作
-    def input(self, by_type, by_value, text):
-        self.locator(by_type, by_value).send_keys(text)
-
-    # 点击操作
-    def click(self, by_type, by_value):
-        self.locator(by_type, by_value).click()
-
-    # 隐式等待
-    def wait(self, time):
-        self.driver.implicitly_wait(time)
-
-    # 强制等待
-    def sleep(self, time):
-        sleep(time)
-
-    # 显式等待
-    def explicit_wait(self, by_type, by_value, time):
-        wait = WebDriverWait(self.driver, time)
-        return wait.until(lambda el: self.locator(by_type, by_value))
-
-    # 断言
-    def assert_txet(self, by_type, by_value, expect):
-        reality = self.locator(by_type, by_value).text
-        try:
-            assert reality == expect
-            Logger().get_logger().info("%r定位成功", format(reality))
-            return True
-        except Exception as e:
-            Logger().get_logger().info("定位失败", e)
-            return False
+    def visit(self, **kwargs):
+        self.driver.get(kwargs['text'])
 
     # 关闭浏览器当前标签页
-    def close(self):
+    def close(self, **kwargs):
         self.driver.close()
-        Logger().get_logger().info("关闭标签")
 
     # 关闭浏览器
-    def quit(self):
+    def quit(self, **kwargs):
         self.driver.quit()
-        Logger().get_logger().info("关闭浏览器")
+
+    # 定位元素
+    def locator(self, **kwargs):
+        try:
+            return self.driver.find_element((getattr(By, kwargs['by_type'].upper())), kwargs['by_value'])
+        except Exception as e:
+            print('元素定位失败，信息：{0}'.format(e))
+
+    # 清空操作
+    def clear(self, **kwargs):
+        self.locator(**kwargs).clear()
+
+    # 输入操作
+    def input(self, **kwargs):
+        self.locator(**kwargs).send_keys(kwargs['text'])
+
+    # 点击操作
+    def click(self, **kwargs):
+        self.locator(**kwargs).click()
+
+    # 隐式等待
+    def wait(self, **kwargs):
+        self.driver.implicitly_wait(kwargs['text'])
+
+    # 强制等待
+    def sleep(self, **kwargs):
+        sleep(kwargs['text'])
+
+    # 显式等待
+    def explicit_wait(self, **kwargs):
+        try:
+            wait = WebDriverWait(self.driver, kwargs['text'])
+            return wait.until(lambda el: self.locator(**kwargs))
+        except Exception as e:
+            print('显示等待失败，信息：{0}'.format(e))
+
+    # 文本断言
+    def assert_text(self, **kwargs):
+        reality = self.explicit_wait(**kwargs).text
+        try:
+            assert reality == kwargs['expect']
+            return True
+        except Exception as e:
+            self.log.info('断言失败，失败信息：{0}!={1}'.format(reality, kwargs['expect']))
+            return False
 
 
 if __name__ == "__main__":
+    param1 = {'by_type':'','by_value':'"]','text':'https://baidu.com','expect':''}
+    param2 = {'by_type':'xpath','by_value':'//*[@id="s-hotsearch-wrapper"]/div/a[1]/div','text':'5','expect':'百度热榜'}
+
     wk = Keywords('Chrome')
-    wk.wait('10')
-    wk.visit('https://baidu.com')
-    wk.input('id', 'kw', 'selenium')
-    wk.click('id', 'su')
-    wk.sleep(1)
-    wk.assert_txet('xpath', '//*[@id="2"]/h3/a[1]', "Selenium automates browsers. That's it!")
-    wk.wait(2)
+    # wk.wait()
+    wk.visit(**param1)
+    # wk.input('id', 'kw', 'selenium')
+    # wk.click('id', 'su')
+    # wk.sleep(1)
+    wk.assert_text(**param2)
+    # wk.wait(2)
     wk.close()
     wk.quit()

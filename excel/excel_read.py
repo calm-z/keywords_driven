@@ -4,16 +4,28 @@
 # 工具：PyCharm
 # Python版本：3.7
 # https://www.imooc.com/article/302606
-from openpyxl import Workbook
+# from openpyxl import Workbook
+#
+# wb = Workbook()
+# ws = wb.active
+# ws1 = wb.create_sheet('Mysheet')
+# ws2 = wb.create_sheet('Mysheet', 0)
+# ws3 = wb.create_sheet('Mysheet', -1)
+# ws.title = "New Title"
+# print(wb.sheetnames)
+# for sheet in wb:
+#     print(sheet)
 
-wb = Workbook()
-ws = wb.active
-ws1 = wb.create_sheet('Mysheet')
-ws2 = wb.create_sheet('Mysheet', 0)
-ws3 = wb.create_sheet('Mysheet', -1)
-ws.title = "New Title"
-print(wb.sheetnames)
-for sheet in wb:
-    print(sheet)
 
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
 
+driver = webdriver.Chrome()
+
+driver.get("https://baidu.com")
+
+wait = WebDriverWait(driver, 10)
+wait.until(lambda el: driver.find_element_by_xpath('//*[@id="s-hotsearch-wrapper"]/div/a[1]/div')).text
+
+print(wait)
+print(wait.until(lambda el: driver.find_element_by_xpath('//*[@id="s-hotsearch-wrapper"]/div/a[1]/div')).text)
