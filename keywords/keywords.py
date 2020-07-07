@@ -11,6 +11,8 @@ from options.options import Options
 from time import sleep
 from selenium.webdriver.support.ui import WebDriverWait
 from log.log import Logger
+import win32gui
+import win32con
 
 
 # 创建浏览器对象，通过反射机制来实现
@@ -98,10 +100,71 @@ class Keywords:
             self.log.info('断言失败，失败信息：{0}!={1}'.format(reality, kwargs['expect']))
             return False
 
+    # 为元素设置焦点
+    def focus(self, **kwargs):
+        self.driver.execute_script("arguments[0].focus();", self.locator(**kwargs))
+
+    # 为元素取消焦点
+    def blur(self, **kwargs):
+        self.driver.execute_script("arguments[0].blur();", self.locator(**kwargs))
+
+    # 非input输入框上传文件，需要传入上传的文件地址、浏览器类型
+    def upload_not_input(self, **kwargs):
+        """
+            通过pywin32模块实现文件上传的操作
+            ：param file_path 文件的绝对路径
+            ：param browser_type 浏览器类型
+            ：return
+        """
+        browser_type = kwargs['text']
+        file_path = kwargs['by_value']
+        try:
+            if browser_type.lower() == 'chrome':
+                title = "打开"
+            elif browser_type.lower() == 'firefox':
+                title = "文件上传"
+            elif browser_type.lower() == 'ie':
+                title = "选择要加载的文件"
+            else:
+                self.log.info("未定义的浏览器类型->{0}，非input输入框上传文件失败，请更改浏览器！".format(browser_type))
+
+            # 找元素
+            # 一级窗口“#32770”,"打开"
+            dialog = win32gui.FindWindow("#32770", title)
+            # 向下传递
+            ComboBoxEx32 = win32gui.FindWindowEx(dialog, 0, "ComboBoxEx32", None)  # 二级
+            comboBox = win32gui.FindWindowEx(ComboBoxEx32, 0, "ComboBox", None)  # 三级
+            # 编辑按钮
+            edit = win32gui.FindWindowEx(comboBox, 0, 'Edit', None)  # 四级
+            # 打开按钮
+            button = win32gui.FindWindowEx(dialog, 0, 'Button1', "打开(&O)")  # 二级
+            # 输入文件的绝对路径，点击“打开”按钮
+            win32gui.SendMessage(edit, win32con.WM_SETTEXT, None, file_path)  # 发送文件路径
+            win32gui.SendMessage(dialog, win32con.WM_COMMAND, 1, button)  # 点击打开按钮
+        except Exception as e:
+            self.log.info("非input输入框上传文件失败，错误信息{0}".format(e))
+
+    # 切换alert
+    def switch_to_alert(self, **kwargs):
+        alt = self.driver.switch_to.alert
+        self.log.info("alert框文本内容：{0}".format(alt.text))
+        option = kwargs['by_type']
+        try:
+            if option == 'accept':
+                alt.accept()
+            elif option == 'dismiss':
+                alt.dismiss()
+            elif option == 'prompt':
+                alt.send_keys(kwargs['text'])
+                alt.accept()
+        except Exception as e:
+            self.log.info("alert操作失败，错误信息：{0}".format(e))
+
 
 if __name__ == "__main__":
-    param1 = {'by_type':'','by_value':'"]','text':'https://baidu.com','expect':''}
-    param2 = {'by_type':'xpath','by_value':'//*[@id="s-hotsearch-wrapper"]/div/a[1]/div','text':'5','expect':'百度热榜'}
+    param1 = {'by_type': '', 'by_value': '"]', 'text': 'https://baidu.com', 'expect': ''}
+    param2 = {'by_type': 'xpath', 'by_value': '//*[@id="s-hotsearch-wrapper"]/div/a[1]/div', 'text': '5',
+              'expect': '百度热榜'}
 
     wk = Keywords('Chrome')
     # wk.wait()
