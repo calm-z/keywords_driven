@@ -22,7 +22,7 @@ class Logger:
 
         if not logger.handlers:
             # 创建一个日志文件handler对象
-            logfile_handler = logging.FileHandler(logfile_name, 'a')
+            logfile_handler = logging.FileHandler(logfile_name, encoding='utf-8',mode='a')
             # 设置输出到file的log等级
             logfile_handler.setLevel(logging.DEBUG)
 
@@ -50,3 +50,4 @@ if __name__ == "__main__":
     except Exception as e:
         Logger().get_logger().error(e, exc_info=False)
         Logger().get_logger().debug(e)
+

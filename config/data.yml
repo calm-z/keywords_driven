@@ -1,2 +1,3 @@
 webui:
   file: ..\excel\case.xlsx
+  mfb_file: ..\excel\mfb_web.xlsx

@@ -12,5 +12,5 @@ if __name__ == '__main__':
     log = Logger().get_logger().info('开始执行测试用例')
     yaml_path = '../config/data.yml'
     key1 = 'webui'
-    key2 = 'file'
+    key2 = 'mfb_file'
     Excel_excutor().excute_web(yaml_path, key1, key2)

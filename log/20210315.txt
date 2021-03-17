@@ -1,0 +1,96 @@
+2021-03-15 19:01:38,491-webui_excute.py-<module>-[line12]-INFO:开始执行测试用例
+2021-03-15 19:01:38,515-excel_excutor.py-excute_web-[line32]-INFO:获取Sheet1内容成功，现在开始执行自动化测试......
+2021-03-15 19:01:38,516-excel_excutor.py-excute_web-[line47]-INFO:现在执行关键字：open_browser，操作描述启动浏览器
+2021-03-15 19:01:41,953-excel_excutor.py-excute_web-[line49]-INFO:打开浏览器啊
+2021-03-15 19:01:41,953-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：wait，操作描述：设置10秒隐式等待
+2021-03-15 19:01:41,955-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：visit，操作描述：进入商城首页
+2021-03-15 19:02:55,280-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：click，操作描述：点击登录按钮
+2021-03-15 19:03:07,513-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：input，操作描述：输入账号
+2021-03-15 19:03:07,625-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：input，操作描述：输入密码
+2021-03-15 19:03:07,738-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：click，操作描述：点击登录按钮
+2021-03-15 19:03:07,824-excel_excutor.py-excute_web-[line53]-INFO:现在执行关键字：assert_text，操作描述：显示等待5秒，断言校验页面中是否存在有退出的元素
+2021-03-15 19:03:19,072-excel_excutor.py-excute_web-[line57]-INFO:流程测试通过！
+2021-03-15 19:03:19,196-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：sleep，操作描述：强制等待5秒
+2021-03-15 19:03:24,197-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：quit，操作描述：关闭浏览器
+2021-03-15 19:03:26,436-excel_excutor.py-excute_web-[line32]-INFO:获取xuzhu内容成功，现在开始执行自动化测试......
+2021-03-15 19:03:26,436-excel_excutor.py-excute_web-[line47]-INFO:现在执行关键字：open_browser，操作描述启动Firefox浏览器
+2021-03-15 19:03:29,847-excel_excutor.py-excute_web-[line49]-INFO:打开浏览器啊
+2021-03-15 19:03:29,847-excel_excutor.py-excute_web-[line75]-INFO:文件读取完毕，自动化执行结束！
+
+2021-03-15 19:05:50,681-webui_excute.py-<module>-[line12]-INFO:开始执行测试用例
+2021-03-15 19:05:50,694-excel_excutor.py-excute_web-[line32]-INFO:获取Sheet1内容成功，现在开始执行自动化测试......
+2021-03-15 19:05:50,695-excel_excutor.py-excute_web-[line47]-INFO:现在执行关键字：open_browser，操作描述启动浏览器
+2021-03-15 19:05:54,082-excel_excutor.py-excute_web-[line49]-INFO:打开浏览器啊
+2021-03-15 19:05:54,083-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：wait，操作描述：设置10秒隐式等待
+2021-03-15 19:05:54,084-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：visit，操作描述：进入商城首页
+2021-03-15 19:06:13,638-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：click，操作描述：点击登录按钮
+2021-03-15 19:06:13,642-excel_excutor.py-excute_web-[line72]-ERROR:运行出现异常，信息描述'NoneType' object has no attribute 'click'：
+Traceback (most recent call last):
+  File "F:\keywords_driven\excel\excel_excutor.py", line 66, in excute_web
+    getattr(wk, value[1])(**param)
+  File "F:\keywords_driven\keywords\keywords.py", line 75, in click
+    self.locator(**kwargs).click()
+AttributeError: 'NoneType' object has no attribute 'click'
+2021-03-15 19:06:13,702-excel_excutor.py-excute_web-[line75]-INFO:文件读取完毕，自动化执行结束！
+
+2021-03-15 19:06:31,116-webui_excute.py-<module>-[line12]-INFO:开始执行测试用例
+2021-03-15 19:06:31,128-excel_excutor.py-excute_web-[line32]-INFO:获取Sheet1内容成功，现在开始执行自动化测试......
+2021-03-15 19:06:31,129-excel_excutor.py-excute_web-[line47]-INFO:现在执行关键字：open_browser，操作描述启动浏览器
+2021-03-15 19:06:34,466-excel_excutor.py-excute_web-[line49]-INFO:打开浏览器啊
+2021-03-15 19:06:34,467-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：wait，操作描述：设置10秒隐式等待
+2021-03-15 19:06:34,468-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：visit，操作描述：进入商城首页
+2021-03-15 19:07:07,776-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：click，操作描述：点击登录按钮
+2021-03-15 19:07:07,779-excel_excutor.py-excute_web-[line72]-ERROR:运行出现异常，信息描述'NoneType' object has no attribute 'click'：
+Traceback (most recent call last):
+  File "F:\keywords_driven\excel\excel_excutor.py", line 66, in excute_web
+    getattr(wk, value[1])(**param)
+  File "F:\keywords_driven\keywords\keywords.py", line 75, in click
+    self.locator(**kwargs).click()
+AttributeError: 'NoneType' object has no attribute 'click'
+2021-03-15 19:07:07,781-excel_excutor.py-excute_web-[line75]-INFO:文件读取完毕，自动化执行结束！
+
+2021-03-15 19:07:20,976-webui_excute.py-<module>-[line12]-INFO:开始执行测试用例
+2021-03-15 19:07:21,034-excel_excutor.py-excute_web-[line32]-INFO:获取进入购课中心内容成功，现在开始执行自动化测试......
+2021-03-15 19:07:21,034-excel_excutor.py-excute_web-[line47]-INFO:现在执行关键字：open_browser，操作描述启动浏览器
+2021-03-15 19:07:24,528-excel_excutor.py-excute_web-[line49]-INFO:打开浏览器啊
+2021-03-15 19:07:24,528-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：wait，操作描述：设置10秒隐式等待
+2021-03-15 19:07:24,530-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：visit，操作描述：进入满分班web端购课中心首页
+2021-03-15 19:09:34,298-excel_excutor.py-excute_web-[line53]-INFO:现在执行关键字：assert，操作描述：定位active的导航菜单栏，判断是否为“课程中心”
+2021-03-15 19:09:34,298-excel_excutor.py-excute_web-[line72]-ERROR:运行出现异常，信息描述'Keywords' object has no attribute 'assert'：
+Traceback (most recent call last):
+  File "F:\keywords_driven\excel\excel_excutor.py", line 54, in excute_web
+    status = getattr(wk, value[1])(**param)
+AttributeError: 'Keywords' object has no attribute 'assert'
+2021-03-15 19:09:34,299-excel_excutor.py-excute_web-[line75]-INFO:文件读取完毕，自动化执行结束！
+
+2021-03-15 19:10:31,569-webui_excute.py-<module>-[line12]-INFO:开始执行测试用例
+2021-03-15 19:10:31,581-excel_excutor.py-excute_web-[line32]-INFO:获取进入购课中心内容成功，现在开始执行自动化测试......
+2021-03-15 19:10:31,581-excel_excutor.py-excute_web-[line47]-INFO:现在执行关键字：open_browser，操作描述启动浏览器
+2021-03-15 19:10:34,953-excel_excutor.py-excute_web-[line49]-INFO:打开浏览器啊
+2021-03-15 19:10:34,953-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：wait，操作描述：设置10秒隐式等待
+2021-03-15 19:10:34,955-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：visit，操作描述：进入满分班web端购课中心首页
+2021-03-15 19:13:52,376-excel_excutor.py-excute_web-[line53]-INFO:现在执行关键字：assert_text，操作描述：定位active的导航菜单栏，判断是否为“课程中心”
+2021-03-15 19:13:52,376-excel_excutor.py-excute_web-[line72]-ERROR:运行出现异常，信息描述'NoneType' object has no attribute 'text'：
+Traceback (most recent call last):
+  File "F:\keywords_driven\excel\excel_excutor.py", line 54, in excute_web
+    status = getattr(wk, value[1])(**param)
+  File "F:\keywords_driven\keywords\keywords.py", line 95, in assert_text
+    reality = self.explicit_wait(**kwargs).text
+AttributeError: 'NoneType' object has no attribute 'text'
+2021-03-15 19:13:52,377-excel_excutor.py-excute_web-[line75]-INFO:文件读取完毕，自动化执行结束！
+
+2021-03-15 19:20:28,370-webui_excute.py-<module>-[line12]-INFO:开始执行测试用例
+2021-03-15 19:20:28,384-excel_excutor.py-excute_web-[line32]-INFO:获取进入购课中心内容成功，现在开始执行自动化测试......
+2021-03-15 19:20:28,384-excel_excutor.py-excute_web-[line47]-INFO:现在执行关键字：open_browser，操作描述启动浏览器
+2021-03-15 19:20:42,807-webui_excute.py-<module>-[line12]-INFO:开始执行测试用例
+2021-03-15 19:20:42,819-excel_excutor.py-excute_web-[line32]-INFO:获取进入购课中心内容成功，现在开始执行自动化测试......
+2021-03-15 19:20:42,819-excel_excutor.py-excute_web-[line47]-INFO:现在执行关键字：open_browser，操作描述启动浏览器
+2021-03-15 19:20:46,206-excel_excutor.py-excute_web-[line49]-INFO:打开浏览器啊
+2021-03-15 19:20:46,206-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：wait，操作描述：设置10秒隐式等待
+2021-03-15 19:20:46,209-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：visit，操作描述：进入满分班web端购课中心首页
+2021-03-15 19:23:01,592-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：locator_text，操作描述：定位active的导航菜单栏，判断是否为“课程中心”
+2021-03-15 19:23:01,633-keywords.py-locator_text-[line168]-INFO:元素文本匹配成功
+2021-03-15 19:23:01,633-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：sleep，操作描述：强制等待5秒
+2021-03-15 19:23:06,633-excel_excutor.py-excute_web-[line65]-INFO:现在执行关键字：quit，操作描述：关闭浏览器
+2021-03-15 19:23:08,860-excel_excutor.py-excute_web-[line75]-INFO:文件读取完毕，自动化执行结束！
+

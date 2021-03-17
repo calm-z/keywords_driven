@@ -4,8 +4,10 @@
 # 工具：PyCharm
 # Python版本：3.7
 
+
 # 导入selenium包
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from options.options import Options
 from time import sleep
@@ -32,14 +34,15 @@ def open_browser(browser_type):
 class Keywords:
     """
         param = {}
-        param['by_type'] = value[2]
-        param['by_value'] = value[3]
-        param['text'] = value[4]
-        param['expect'] = value[6]
+        param['by_type'] = value[2]  定位方法
+        param['by_value'] = value[3] 元素路径
+        param['text'] = value[4]     输入内容
+        param['expect'] = value[6]   预期结果
     """
+
     log = Logger().get_logger()
 
-    # 构造函数
+    # 构造函数 实例化浏览器驱动,调用open_browser
     def __init__(self, browser_type):
         self.driver = open_browser(browser_type)
 
@@ -55,30 +58,30 @@ class Keywords:
     def quit(self, **kwargs):
         self.driver.quit()
 
-    # 定位元素
+    # 定位元素,并返回该元素
     def locator(self, **kwargs):
         try:
             return self.driver.find_element((getattr(By, kwargs['by_type'].upper())), kwargs['by_value'])
         except Exception as e:
             print('元素定位失败，信息：{0}'.format(e))
 
-    # 清空操作
+    # 调用locator后，对元素进行清空操作
     def clear(self, **kwargs):
         self.locator(**kwargs).clear()
 
-    # 输入操作
+    # 调用locator后，对元素进行输入操作
     def input(self, **kwargs):
         self.locator(**kwargs).send_keys(kwargs['text'])
 
-    # 点击操作
+    # 调用locator后，对元素进行点击操作
     def click(self, **kwargs):
         self.locator(**kwargs).click()
 
-    # 隐式等待
+    # 为实例化的浏览器驱动设置隐式等待，传入时间
     def wait(self, **kwargs):
         self.driver.implicitly_wait(kwargs['text'])
 
-    # 强制等待
+    # 使用time模块下的sleep实现强制等待
     def sleep(self, **kwargs):
         sleep(kwargs['text'])
 
@@ -158,7 +161,67 @@ class Keywords:
                 alt.send_keys(kwargs['text'])
                 alt.accept()
         except Exception as e:
-            self.log.info("alert操作失败，错误信息：{0}".format(e))
+            self.log.error("alert操作失败，错误信息：{0}".format(e))
+
+    # 定位元素，并模糊匹配该元素的文本内容
+    def assert_fazzy(self, **kwargs):
+        try:
+            text = self.locator(**kwargs).text
+
+            if kwargs['expect'] in text:
+                self.log.info('元素文本匹配成功')
+                return True
+            else:
+                self.log.info('{0} != {1},匹配失败'.format(text, kwargs['expect']))
+                return False
+        except Exception as e:
+            self.log.error('匹配元素文本失败，信息：{0}'.format(e))
+
+    # 鼠标悬停
+    def mouse_hover(self, **kwargs):
+        try:
+            action = ActionChains(self.driver)
+            action.move_to_element(self.locator(**kwargs)).perform()
+            self.log.info("鼠标悬停成功")
+
+        except Exception as e:
+            self.log.error('mouse_hover操作失败，错误信息：{0}'.format(e))
+
+    # 查找元素，获取属性值并断言文本是否存在在属性值中
+    def assert_attribute(self, **kwargs):
+        el = self.locator(**kwargs)
+        try:
+            attribute = el.get_attribute(kwargs['text'])
+            if kwargs['expect'] in attribute:
+                self.log.info('属性值{0}在元素中'.format(kwargs['expect']))
+                return True
+            else:
+                self.log.info('属性{0}没有在该元素中'.format(kwargs['expect']))
+                return False
+
+        except Exception as e:
+            self.log.error('获取属性值断言失败，错误信息：{0}'.format(e))
+
+    # 操作页面滚动，需要传入滚动参数
+    def scrolling(self, **kwargs):
+        try:
+            js = "window.scrollTo" + kwargs['text']
+            print(js)
+            self.driver.execute_script(js)
+            self.log.info('页面滚动{0}成功'.format(kwargs['text']))
+        except Exception as e:
+            self.log.error('页面滚动失败，错误信息：{0}'.format(e))
+
+    # 获取当前页面的url并断言
+    def assert_url(self, **kwargs):
+        try:
+            url = self.driver.current_url
+            assert url == kwargs['expect']
+            self.log.info('断言url成功:{0}'.format(url))
+            return True
+        except Exception as e:
+            self.log.error('断言当前页面的url失败,{0} != {1}'.format(url, kwargs['expect']))
+            return False
 
 
 if __name__ == "__main__":

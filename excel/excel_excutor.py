@@ -46,7 +46,7 @@ class Excel_excutor(object):
                         if value[1] == 'open_browser':
                             self.log.info('现在执行关键字：{0}，操作描述{1}'.format(value[1], value[5]))
                             wk = Keywords(param['text'])
-                            self.log.info("打开浏览器啊")
+                            self.log.info("打开浏览器")
 
                         # 判断是否为断言，若是断言则添加写入操作
                         elif 'assert' in value[1]:
@@ -54,10 +54,10 @@ class Excel_excutor(object):
                             status = getattr(wk, value[1])(**param)
                             row = value[0] + 1
                             if status is True:
-                                self.log.info('流程测试通过！')
+                                self.log.info('{0},流程测试通过'.format(sheet))
                                 ec.cell_write('pass', sheet_now, row)
                             else:
-                                self.log.info('流程测试失败！')
+                                self.log.info('{0},流程测试失败'.format(sheet))
                                 ec.cell_write('false', sheet_now, row)
                             ec.excel_save(excel, excel_path)
                         # 定义常规关键字调用
