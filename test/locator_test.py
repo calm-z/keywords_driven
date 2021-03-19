@@ -10,6 +10,7 @@ from selenium.webdriver import ActionChains
 
 from options.options import Options
 from keywords.keywords import Keywords
+import unittest
 
 driver = webdriver.Chrome(options=Options().chrome_options())
 driver.implicitly_wait(10)
@@ -43,4 +44,7 @@ driver.find_element_by_xpath('//input[@placeholder="请输入手机号"]').send_
 driver.find_element_by_xpath('//input[@placeholder="请输入短信验证码"]').send_keys('1111')
 driver.find_element_by_xpath('//button[@class="el-button button el-button--primary is-round"]').click()
 time.sleep(2)
-driver.find_element(By.Link_text,'')
+
+# driver.close()
+driver.get('https://baidu.com')
+

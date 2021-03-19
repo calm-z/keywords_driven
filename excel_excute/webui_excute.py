@@ -4,7 +4,7 @@
 # 工具：PyCharm
 # Python版本：3.7
 
-from keywords.keywords import Keywords
+
 from log.log import Logger
 from excel.excel_excutor import Excel_excutor
 

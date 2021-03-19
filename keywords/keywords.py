@@ -38,6 +38,27 @@ class Keywords:
         param['by_value'] = value[3] 元素路径
         param['text'] = value[4]     输入内容
         param['expect'] = value[6]   预期结果
+
+        def::visit  访问指定URL
+        def::close  关闭浏览器当前标签页
+        def::quit   关闭浏览器
+        def::locator    定位元素，并返回该元素
+        def::clear  调用locator后，对元素进行清空操作
+        def::input  调用locator后，对元素进行输入操作
+        def::click  调用locator后，对元素进行点击操作
+        def::wait   为实例化的浏览器驱动设置隐式等待，传入时间
+        def::sleep  使用time模块下的sleep实现强制等待
+        def::explicit_wait  显式等待 调用locator定位元素，text为传入等待时间
+        def::assert_text    文本断言 调用explicit_wait显示等待元素出现后进行断言
+        def::focus  调用locator定位元素，为元素设置焦点
+        def::blur   调用locator定位元素，为元素取消焦点
+        def::upload_not_input   非input输入框上传文件，需要传入上传的文件地址、浏览器类型
+        def::switch_to_alert    切换alert
+        def::assert_fazzy   定位元素，并模糊匹配该元素的文本内容(需要再优化)
+        def::mouse_hover    调用locator定位元素后，鼠标悬停
+        def::assert_attribute   查找元素，获取属性值并断言文本是否存在在属性值中
+        def::scrolling  操作页面滚动，需要传入滚动参数
+        def::assert_url 获取当前页面的url并断言
     """
 
     log = Logger().get_logger()
@@ -85,7 +106,7 @@ class Keywords:
     def sleep(self, **kwargs):
         sleep(kwargs['text'])
 
-    # 显式等待
+    # 显式等待 调用locator定位元素，text为传入等待时间
     def explicit_wait(self, **kwargs):
         try:
             wait = WebDriverWait(self.driver, kwargs['text'])
@@ -93,7 +114,7 @@ class Keywords:
         except Exception as e:
             print('显示等待失败，信息：{0}'.format(e))
 
-    # 文本断言
+    # 文本断言 调用explicit_wait显示等待元素出现后进行断言
     def assert_text(self, **kwargs):
         reality = self.explicit_wait(**kwargs).text
         try:
@@ -103,11 +124,11 @@ class Keywords:
             self.log.info('断言失败，失败信息：{0}!={1}'.format(reality, kwargs['expect']))
             return False
 
-    # 为元素设置焦点
+    # 调用locator定位元素，为元素设置焦点
     def focus(self, **kwargs):
         self.driver.execute_script("arguments[0].focus();", self.locator(**kwargs))
 
-    # 为元素取消焦点
+    # 调用locator定位元素，为元素取消焦点
     def blur(self, **kwargs):
         self.driver.execute_script("arguments[0].blur();", self.locator(**kwargs))
 
@@ -177,7 +198,7 @@ class Keywords:
         except Exception as e:
             self.log.error('匹配元素文本失败，信息：{0}'.format(e))
 
-    # 鼠标悬停
+    # 调用locator定位元素后，鼠标悬停
     def mouse_hover(self, **kwargs):
         try:
             action = ActionChains(self.driver)
@@ -206,7 +227,7 @@ class Keywords:
     def scrolling(self, **kwargs):
         try:
             js = "window.scrollTo" + kwargs['text']
-            print(js)
+            # print(js)
             self.driver.execute_script(js)
             self.log.info('页面滚动{0}成功'.format(kwargs['text']))
         except Exception as e:
@@ -224,18 +245,23 @@ class Keywords:
             return False
 
 
+# 自测代码
 if __name__ == "__main__":
     param1 = {'by_type': '', 'by_value': '"]', 'text': 'https://baidu.com', 'expect': ''}
-    param2 = {'by_type': 'xpath', 'by_value': '//*[@id="s-hotsearch-wrapper"]/div/a[1]/div', 'text': '5',
+    param2 = {'by_type': 'xpath', 'by_value': '//*[@id="s-hotsearch-wrapper"]/div/a[1]/div', 'text': 5,
               'expect': '百度热榜'}
 
+    param3 = {'by_type': '', 'by_value': '"]', 'text': '', 'expect': 'https://baidu.com'}
+    param4 = {'by_type': '', 'by_value': '"]', 'text': 3, 'expect': ''}
     wk = Keywords('Chrome')
     # wk.wait()
     wk.visit(**param1)
     # wk.input('id', 'kw', 'selenium')
     # wk.click('id', 'su')
-    # wk.sleep(1)
+    wk.sleep(**param4)
     wk.assert_text(**param2)
+
+    wk.assert_url(**param3)
     # wk.wait(2)
     wk.close()
     wk.quit()

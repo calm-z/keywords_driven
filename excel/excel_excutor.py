@@ -75,9 +75,61 @@ class Excel_excutor(object):
             self.log.info("文件读取完毕，自动化执行结束！\n")
             ec.close(excel)
 
+    def excute_unittest(self, yaml_path, key1, key2, sheet_name):
+        ec = Excel_conf()
+        file_data = ec.load_yaml(yaml_path)
+        excel_path = file_data[key1][key2]
+        excel = ec.open_excel(excel_path)
+        sheets = ec.get_sheets(excel)
+
+        try:
+            # 读取指定的sheet表
+            self.log.info('获取{0}内容成功，现在开始执行自动化测试......'.format(sheet_name))
+            sheet_now = excel[sheet_name]
+            # 基于sheet内容，运行测试用例
+            for value in sheet_now.values:
+                param = {'by_type': value[2], 'by_value': value[3], 'text': value[4], 'expect': value[6]}
+
+                # 判断文件，从用例内容开始执行
+                if type(value[0]) is int:
+
+                    # 判断关键字，如果是open_browser，则实例化对象，若不是，则进行其他元素操作
+                    if value[1] == 'open_browser':
+                        self.log.info('现在执行关键字：{0}，操作描述{1}'.format(value[1], value[5]))
+                        wk = Keywords(param['text'])
+                        self.log.info("打开浏览器")
+
+                    # 判断是否为断言，若是断言则添加写入操作
+                    elif 'assert' in value[1]:
+                        self.log.info('现在执行关键字：{0}，操作描述：{1}'.format(value[1], value[5]))
+                        status = getattr(wk, value[1])(**param)
+                        row = value[0] + 1
+                        if status is True:
+                            self.log.info('{0},流程测试通过'.format(sheet_name))
+                            ec.cell_write('pass', sheet_now, row)
+                        else:
+                            self.log.info('{0},流程测试失败'.format(sheet_name))
+                            ec.cell_write('false', sheet_now, row)
+                        ec.excel_save(excel, excel_path)
+                        return param
+                    # 定义常规关键字调用
+                    else:
+                        self.log.info('现在执行关键字：{0}，操作描述：{1}'.format(value[1], value[5]))
+                        getattr(wk, value[1])(**param)
+
+                else:
+                    pass
+
+        except Exception as e:
+            self.log.exception('运行出现异常，信息描述{0}：'.format(e))
+        finally:
+            # 关闭读取的文件
+            self.log.info("文件读取完毕，自动化执行结束！\n")
+            ec.close(excel)
+
 
 if __name__ == '__main__':
     yaml_path = r'../config/data.yml'
     key1 = 'webui'
-    key2 = 'file'
-    Excel_excutor().excute_web(yaml_path, key1, key2)
+    key2 = 'mfb_file'
+    Excel_excutor().excute_unittest(yaml_path, key1, key2, 'course-list')

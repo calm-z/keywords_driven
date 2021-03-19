@@ -1,0 +1,43 @@
+2021-03-19 15:33:29,687-keywords.py-assert_url-[line244]-ERROR:断言当前页面的url失败,data:, != https://baidu.com
+2021-03-19 15:35:28,775-keywords.py-assert_url-[line244]-ERROR:断言当前页面的url失败,https://www.baidu.com/ != https://baidu.com
+2021-03-19 18:48:07,374-excel_excutor.py-excute_unittest-[line87]-INFO:获取course-list内容成功，现在开始执行自动化测试......
+2021-03-19 18:48:07,375-excel_excutor.py-excute_unittest-[line98]-INFO:现在执行关键字：open_browser，操作描述启动浏览器
+2021-03-19 18:48:10,903-excel_excutor.py-excute_unittest-[line100]-INFO:打开浏览器
+2021-03-19 18:48:10,904-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：wait，操作描述：设置10秒隐式等待
+2021-03-19 18:48:10,907-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：visit，操作描述：进入满分班web端购课中心首页
+2021-03-19 18:48:15,025-excel_excutor.py-excute_unittest-[line104]-INFO:现在执行关键字：assert_url，操作描述：断言当前url
+2021-03-19 18:48:15,042-keywords.py-assert_url-[line241]-INFO:断言url成功:https://www.100.nxdev.cn/pc/course-list
+2021-03-19 18:48:15,043-excel_excutor.py-excute_unittest-[line108]-INFO:course-list,流程测试通过
+2021-03-19 18:48:15,048-excel_excutor.py-excute_unittest-[line123]-ERROR:运行出现异常，信息描述[Errno 13] Permission denied: '..\\excel\\mfb_web.xlsx'：
+Traceback (most recent call last):
+  File "F:/keywords_driven/excel/excel_excutor.py", line 113, in excute_unittest
+    ec.excel_save(excel, excel_path)
+  File "F:\keywords_driven\excel\excel_conf.py", line 52, in excel_save
+    excel.save(path)
+  File "E:\Anaconda\lib\site-packages\openpyxl\workbook\workbook.py", line 392, in save
+    save_workbook(self, filename)
+  File "E:\Anaconda\lib\site-packages\openpyxl\writer\excel.py", line 291, in save_workbook
+    archive = ZipFile(filename, 'w', ZIP_DEFLATED, allowZip64=True)
+  File "E:\Anaconda\lib\zipfile.py", line 1240, in __init__
+    self.fp = io.open(file, filemode)
+PermissionError: [Errno 13] Permission denied: '..\\excel\\mfb_web.xlsx'
+2021-03-19 18:48:15,122-excel_excutor.py-excute_unittest-[line126]-INFO:文件读取完毕，自动化执行结束！
+
+2021-03-19 18:48:28,171-excel_excutor.py-excute_unittest-[line87]-INFO:获取course-list内容成功，现在开始执行自动化测试......
+2021-03-19 18:48:28,171-excel_excutor.py-excute_unittest-[line98]-INFO:现在执行关键字：open_browser，操作描述启动浏览器
+2021-03-19 18:48:31,562-excel_excutor.py-excute_unittest-[line100]-INFO:打开浏览器
+2021-03-19 18:48:31,562-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：wait，操作描述：设置10秒隐式等待
+2021-03-19 18:48:31,564-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：visit，操作描述：进入满分班web端购课中心首页
+2021-03-19 18:48:35,177-excel_excutor.py-excute_unittest-[line104]-INFO:现在执行关键字：assert_url，操作描述：断言当前url
+2021-03-19 18:48:35,183-keywords.py-assert_url-[line241]-INFO:断言url成功:https://www.100.nxdev.cn/pc/course-list
+2021-03-19 18:48:35,184-excel_excutor.py-excute_unittest-[line108]-INFO:course-list,流程测试通过
+2021-03-19 18:48:35,374-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：sleep，操作描述：强制等待2秒
+2021-03-19 18:48:37,375-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：scrolling，操作描述：页面滚动至底部
+2021-03-19 18:48:37,384-keywords.py-scrolling-[line232]-INFO:页面滚动(0,2000)成功
+2021-03-19 18:48:37,385-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：sleep，操作描述：强制等待1秒
+2021-03-19 18:48:38,385-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：scrolling，操作描述：页面滚动至底部
+2021-03-19 18:48:38,392-keywords.py-scrolling-[line232]-INFO:页面滚动(0,4000)成功
+2021-03-19 18:48:38,392-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：sleep，操作描述：强制等待2秒
+2021-03-19 18:48:40,393-excel_excutor.py-excute_unittest-[line116]-INFO:现在执行关键字：quit，操作描述：关闭浏览器
+2021-03-19 18:48:42,632-excel_excutor.py-excute_unittest-[line126]-INFO:文件读取完毕，自动化执行结束！
+
